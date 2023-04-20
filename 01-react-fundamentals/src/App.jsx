@@ -3,6 +3,7 @@ import { Header } from "./components/Header";
 import './global.css';
 import styles from './App.module.css';
 import { Sidebar } from "./components/Sidebar";
+import { Post } from "./components/Post";
 
 export function App() {
 
@@ -15,7 +16,7 @@ export function App() {
         <Sidebar />
 
         <main>
-          <h1>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorem, praesentium debitis tempora quos omnis dolor assumenda, illo nisi, vitae quidem quaerat corporis ea. Necessitatibus totam eius quod delectus, modi laudantium?</h1>
+          <Post />
         </main>
       
       </div>
