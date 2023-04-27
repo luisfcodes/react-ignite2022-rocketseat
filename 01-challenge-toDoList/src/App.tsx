@@ -1,10 +1,9 @@
 import './global.css'
+import { Home } from './pages/Home'
 
 function App() {
   return (
-    <>
-      <h1>Olá</h1>
-    </>
+    <Home />
   )
 }
 
