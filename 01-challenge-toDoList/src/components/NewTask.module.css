@@ -8,11 +8,15 @@
 .container input {
   flex: 1;
   background-color: var(--gray-500);
-  color: var(--gray-300);
+  color: var(--gray-100);
   border: 1px solid var(--gray-700);
   border-radius: 8px;
   padding: 1rem;
   outline: transparent;
+}
+
+.container input:focus {
+  outline: 1px solid var(--purple-dark);
 }
 
 .container button {

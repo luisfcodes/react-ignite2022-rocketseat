@@ -1,5 +1,6 @@
 .container {
   margin-top: 4rem;
+  padding-bottom: 4rem;
 }
 
 .header {
@@ -82,24 +83,72 @@
   gap: .75rem;
 }
 
-.list li button:first-child{
+.unchecked, .checked {
   cursor: pointer;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: transparent;
+  transition: all .2s;
+}
+
+.unchecked{
   border: 2px solid var(--blue);
 }
 
-.list li button:first-child:hover {
+.unchecked:hover {
   border: 2px solid var(--blue-dark);
+  background-color: rgba(30, 111, 159, .2);
 }
 
-.list li span {
+.checked {
+  border: 2px solid var(--purple-dark);
+  background-color: var(--purple-dark);
+  position: relative;
+}
+
+.checked::after {
+  content: "";
+  width: 4px;
+  height: 1px;
+  background-color: var(--gray-100);
+  position: absolute;
+  rotate: 45deg;
+  left: 20%;
+  bottom: 32%;
+  border-radius: 1px 0 0 1px;
+}
+
+.checked::before {
+  content: "";
+  width: 10px;
+  height: 1px;
+  background-color: var(--gray-100);
+  position: absolute;
+  rotate: 135deg;
+  left: 30%;
+  bottom: 45%;
+  border-radius: 1px 0 0 1px;
+}
+
+.checked:hover {
+  background-color: var(--purple);
+  border: 2px solid var(--purple);
+}
+
+.checkedText, .uncheckedText {
   font-size: .875rem;
   line-height: 140%;
-  color: var(--gray-100);
   flex: 1;
+}
+
+.checkedText {
+  color: var(--gray-300);
+  text-decoration: line-through;
+}
+
+.uncheckedText {
+  color: var(--gray-100);
 }
 
 .list li button:last-child{
@@ -114,7 +163,6 @@
 
 .list li button:last-child:hover{
   background-color: var(--gray-400);
-  
 }
 
 .list li button:last-child svg{

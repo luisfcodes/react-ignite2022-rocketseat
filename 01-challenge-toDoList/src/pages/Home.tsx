@@ -12,20 +12,7 @@ export interface List {
 }
 
 export function Home(){
-
-  // const [countCheckedTask, setCountCheckedTask] = useState(0)
-  const [taskList, setTaskList] = useState<List[]>([
-    {
-      id: 1,
-      text: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
-      checked: false
-    },
-    {
-      id: 2,
-      text: 'Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.',
-      checked: false
-    }
-  ])
+  const [taskList, setTaskList] = useState<List[]>([])
 
   return (
     <>

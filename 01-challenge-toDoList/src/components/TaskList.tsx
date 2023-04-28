@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { List } from '../pages/Home';
 import styles from './TaskList.module.css';
 
@@ -11,10 +11,13 @@ interface TaskListProps {
 
 export function TaskList({ list, setTaskList }: TaskListProps) {
 
+  const [checkedTasksCounter, setCheckedTasksCounter] = useState(0)
+
   function handleDeleteTask(id: number){
     const newList = list.filter(task => task.id !== id)
 
     setTaskList(newList)
+    updateCheckedTasksCounter(newList)
   }
 
   function handleCheckedTask(id: number){
@@ -30,6 +33,19 @@ export function TaskList({ list, setTaskList }: TaskListProps) {
     })
 
     setTaskList(newList)
+    updateCheckedTasksCounter(newList)
+  }
+
+  function updateCheckedTasksCounter(list: List[]){
+    const newCount = list.reduce((acc, current) => {
+      if(current.checked){
+        return acc + 1
+      } else {
+        return acc
+      }
+    },0)
+
+    setCheckedTasksCounter(newCount)
   }
 
   return (
@@ -41,7 +57,7 @@ export function TaskList({ list, setTaskList }: TaskListProps) {
         </div>
         <div>
           <span>Concluídas</span>
-          <span>0</span>
+          <span>{list.length > 0 ? `${checkedTasksCounter} de ${list.length}` : 0}</span>
         </div>
       </div>
 
@@ -49,8 +65,11 @@ export function TaskList({ list, setTaskList }: TaskListProps) {
         <ul className={styles.list}>
           {list.map((item: List) => (
             <li key={item.id}>
-              <button onClick={() => handleCheckedTask(item.id)}></button>
-              <span>{item.text}</span>
+              <button 
+                onClick={() => handleCheckedTask(item.id)} 
+                className={item.checked ? styles.checked : styles.unchecked}>
+              </button>
+              <span className={item.checked ? styles.checkedText : styles.uncheckedText}>{item.text}</span>
               <button onClick={() => handleDeleteTask(item.id)}>
                 <Trash size={24} />
               </button>
