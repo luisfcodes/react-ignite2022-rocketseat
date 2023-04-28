@@ -61,3 +61,43 @@
 .noContent h3 {
   font-weight: 400;
 }
+
+.list {
+  margin-top: 1.5rem;
+}
+
+.list li + li {
+  margin-top: .75rem;
+}
+
+.list li{
+  padding: 1rem;
+  border: 1px solid var(--gray-400);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.6);
+  background-color: var(--gray-500);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.list li button{
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 2px solid var(--blue);
+  margin-top: .2rem;
+}
+
+.list li button:hover {
+  border: 2px solid var(--blue-dark);
+  
+}
+
+.list li span {
+  font-size: .875rem;
+  line-height: 140%;
+  color: var(--gray-100);
+}
