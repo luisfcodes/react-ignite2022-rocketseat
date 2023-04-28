@@ -78,26 +78,50 @@
   border-radius: 8px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: .75rem;
 }
 
-.list li button{
+.list li button:first-child{
   cursor: pointer;
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: transparent;
   border: 2px solid var(--blue);
-  margin-top: .2rem;
 }
 
-.list li button:hover {
+.list li button:first-child:hover {
   border: 2px solid var(--blue-dark);
-  
 }
 
 .list li span {
   font-size: .875rem;
   line-height: 140%;
   color: var(--gray-100);
+  flex: 1;
+}
+
+.list li button:last-child{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  transition: all .2s;
+}
+
+.list li button:last-child:hover{
+  background-color: var(--gray-400);
+  
+}
+
+.list li button:last-child svg{
+  margin-top: .2rem;
+  color: var(--gray-300);
+}
+
+.list li button:last-child svg:hover{
+  color: var(--danger);
 }
