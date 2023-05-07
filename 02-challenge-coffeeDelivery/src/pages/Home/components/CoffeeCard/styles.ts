@@ -84,6 +84,11 @@ export const CardContainer = styled.li`
           display: flex;
           border: none;
           color: ${props => props.theme.purple};
+          transition: all .2s;
+
+          &:hover {
+            color: ${props => props.theme["purple-dark"]};
+          }
         }
 
         span {
@@ -100,6 +105,11 @@ export const CardContainer = styled.li`
         border-radius: 6px;
         border: none;
         color: ${props => props.theme.background};
+        transition: all .2s;
+
+        &:hover {
+        background-color: ${props => props.theme.purple};
+        }
       }
     }
   }

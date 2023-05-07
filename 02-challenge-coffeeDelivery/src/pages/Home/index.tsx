@@ -4,8 +4,15 @@ import { HomeContainer } from "./styles";
 import Banner from '../../assets/Banner.png';
 import { Item } from "./components/Item";
 import { CoffeeCard } from "./components/CoffeeCard";
+import { useEffect } from "react";
 
 export function Home() {
+  // useEffect(() => {
+  //   fetch('http://localhost:3030/coffeeList')
+  //     .then(data => data.json())
+  //     .then(result => console.log(result))
+  // }, [])
+
   return (
     <HomeContainer>
       <section className="intro">

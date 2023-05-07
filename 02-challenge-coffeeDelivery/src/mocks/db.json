@@ -1,0 +1,12 @@
+{
+  "coffeeList": [
+    {
+      "tags": [
+        "Tradicional"
+      ],
+      "title": "Expresso Tradicional",
+      "subtitle": "O tradicional café feito com água quente e grãos moídos",
+      "price": 9.90
+    }
+  ]
+}
