@@ -6,14 +6,6 @@ import { Item } from "./components/Item";
 import { CoffeeCard } from "./components/CoffeeCard";
 import { useEffect, useState } from "react";
 
-// "tags": [
-//   "Tradicional"
-// ],
-// "title": "Expresso Tradicional",
-// "subtitle": "O tradicional café feito com água quente e grãos moídos",
-// "price": 9.90,
-// "image": "Express.png"
-
 export interface CoffeeList {
   tags: string[]
   title: string

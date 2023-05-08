@@ -74,34 +74,6 @@ export const CardContainer = styled.li`
       align-items: center;
       gap: 0.5rem;
 
-      .amount {
-        width: 72px;
-        height: 38px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: ${props => props.theme["base-button"]};
-        padding: 0.5rem;
-        border-radius: 6px;
-
-        button {
-          cursor: pointer;
-          background-color: transparent;
-          display: flex;
-          border: none;
-          color: ${props => props.theme.purple};
-          transition: all .2s;
-
-          &:hover {
-            color: ${props => props.theme["purple-dark"]};
-          }
-        }
-
-        span {
-          color: ${props => props.theme["base-title"]};
-        }
-      }
-
       .buy-button {
         cursor: pointer;
         padding: 0.5rem;
