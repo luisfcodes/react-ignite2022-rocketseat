@@ -17,15 +17,21 @@ export const CardContainer = styled.li`
     top: -1.25rem;
   }
 
-  .tag {
+  .tags {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
     margin-top: 90px;
-    padding: 4px 8px;
-    background-color: ${props => props.theme["yellow-light"]};
-    border-radius: 100px;
-    font-weight: 700;
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    color: ${props => props.theme["yellow-dark"]};
+
+    span {
+      padding: 4px 8px;
+      background-color: ${props => props.theme["yellow-light"]};
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.625rem;
+      text-transform: uppercase;
+      color: ${props => props.theme["yellow-dark"]};
+    }
   }
 
   h3 {

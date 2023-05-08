@@ -1,14 +1,18 @@
 import { ReactNode } from "react"
 import { ItemContainer } from "./styles";
 
-interface ItemProps {
+export interface Colors {
+  backgroundColor: 'yellow-dark' | 'yellow' | 'base-text' | 'purple'
+}
+
+interface ItemProps extends Colors{
   text: string;
   children: ReactNode;
 }
 
-export function Item({text, children}: ItemProps) {
+export function Item({text, children, backgroundColor}: ItemProps) {
   return (
-    <ItemContainer>
+    <ItemContainer backgroundColor={backgroundColor}>
       <span>
         {children}
       </span>

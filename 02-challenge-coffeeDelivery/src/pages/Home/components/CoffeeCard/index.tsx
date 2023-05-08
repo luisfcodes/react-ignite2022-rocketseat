@@ -1,18 +1,24 @@
 import { CardContainer } from "./styles";
 
-import Express from '../../../../assets/Express.png';
 import { Minus, Plus, ShoppingCartSimple } from "@phosphor-icons/react";
+import { CoffeeList } from "../..";
 
-export function CoffeeCard() {
+export function CoffeeCard({ title, subtitle, price, image, tags } : CoffeeList) {
   return (
     <CardContainer>
-      <img src={Express} alt="" />
-      <span className="tag">Tradicional</span>
-      <h3>Expresso Tradicional</h3>
-      <span className="subtitle">O tradicional café feito com água quente e grãos moídos</span>
+      <img src={`src/assets/${image}`} alt="" />
+      <div className="tags">
+        {
+          tags.map(tag => (
+            <span key={tag}>{tag}</span>
+          ))
+        }
+      </div>
+      <h3>{ title }</h3>
+      <span className="subtitle">{ subtitle }</span>
 
       <div className="actions">
-        <span className="currency">R$</span><span className="price">9,90</span>
+        <span className="currency">R$</span><span className="price">{ price }</span>
 
         <div className="actions-buttons">
           <div className="amount">

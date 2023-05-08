@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { Colors } from ".";
 
-export const ItemContainer = styled.div`
+export const ItemContainer = styled.div<Colors>`
   width: 50%;
   display: flex;
   align-items: center;
@@ -11,7 +12,7 @@ export const ItemContainer = styled.div`
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: ${props => props.theme["yellow-dark"]};
+    background-color: ${props => props.theme[props.backgroundColor]};
 
     svg {
       color: ${props => props.theme.background};

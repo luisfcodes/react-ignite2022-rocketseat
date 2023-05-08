@@ -4,14 +4,32 @@ import { HomeContainer } from "./styles";
 import Banner from '../../assets/Banner.png';
 import { Item } from "./components/Item";
 import { CoffeeCard } from "./components/CoffeeCard";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+// "tags": [
+//   "Tradicional"
+// ],
+// "title": "Expresso Tradicional",
+// "subtitle": "O tradicional café feito com água quente e grãos moídos",
+// "price": 9.90,
+// "image": "Express.png"
+
+export interface CoffeeList {
+  tags: string[]
+  title: string
+  subtitle: string
+  price: string
+  image: string
+}
 
 export function Home() {
-  // useEffect(() => {
-  //   fetch('http://localhost:3030/coffeeList')
-  //     .then(data => data.json())
-  //     .then(result => console.log(result))
-  // }, [])
+  const [coffeeList, setCoffeeList] = useState<CoffeeList[]>([])
+
+  useEffect(() => {
+    fetch('http://localhost:3030/coffeeList')
+      .then(data => data.json())
+      .then(result => setCoffeeList(result))
+  }, [])
 
   return (
     <HomeContainer>
@@ -24,21 +42,21 @@ export function Home() {
 
           <div className="content-items">
             <div>
-              <Item text="Compra simples e segura">
+              <Item text="Compra simples e segura" backgroundColor="yellow-dark">
                 <ShoppingCart weight="fill" size={16} />
               </Item>
 
-              <Item text="Embalagem mantém o café intacto">
+              <Item text="Embalagem mantém o café intacto" backgroundColor="base-text">
                 <Package weight="fill" size={16} />
               </Item>
             </div>
 
             <div>
-              <Item text="Entrega rápida e rastreada">
+              <Item text="Entrega rápida e rastreada" backgroundColor="yellow">
                 <Timer weight="fill" size={16} />
               </Item>
 
-              <Item text="O café chega fresquinho até você">
+              <Item text="O café chega fresquinho até você" backgroundColor="purple">
                 <Coffee weight="fill" size={16} />
               </Item>
             </div>
@@ -52,12 +70,16 @@ export function Home() {
         <h2>Nossos cafés</h2>
 
         <ul>
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
+          {coffeeList.map(coffee => (
+            <CoffeeCard
+              key={coffee.title}
+              title={coffee.title}
+              subtitle={coffee.subtitle}
+              tags={coffee.tags}
+              price={coffee.price}
+              image={coffee.image}
+            />
+          ))}
         </ul>
       </section>
     </HomeContainer>
