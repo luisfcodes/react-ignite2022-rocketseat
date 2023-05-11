@@ -6,133 +6,140 @@ export const CheckoutContainer = styled.main`
   justify-content: space-between;
   gap: 2rem;
 
-  .order-form {
+  form{
     flex: 1;
-  }
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
 
-  h2 {
-    color: ${props => props.theme["base-subtitle"]};
-    font-family: 'Baloo 2', cursive;
-    font-weight: bold;
-    font-size: 1.125rem;
-  }
-
-  .container {
-    margin-top: 1rem;
-    background-color: ${props => props.theme["base-card"]};
-    padding: 2.5rem;
-    border-radius: 6px;
-
-    .title {
-      display: flex;
-      gap: .5rem;
-
-      .map-icon {
-        color: ${props => props.theme["yellow-dark"]};
-      }
-
-      .currency-icon {
-        color: ${props => props.theme.purple};
-      }
-
-      h3 {
-        color: ${props => props.theme["base-subtitle"]};
-        font-weight: 400;
-        font-size: 1rem;
-      }
-
-      span {
-        font-size: .875rem;
-        color: ${props => props.theme["base-text"]};
-      }
+    section:first-child {
+      flex: 1;
     }
 
-    form {
-      margin-top: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-
-      input {
-        height: 42px;
-        padding: .75rem;
-        background-color: ${props => props.theme["base-input"]};
-        border: 1px solid ${props => props.theme["base-button"]};
-        border-radius: 4px;
-        color: ${props => props.theme["base-label"]};
-        
-        ::placeholder {
-          color: ${props => props.theme["base-label"]};
-          font-size: .875rem;
-        }
-      }
-
-      .inputWidth{
-        width: 200px;
-      }
-
-      div {
-        display: flex;
-        gap: .75rem;
-      }
-
-      .inputUF {
-        width: 60px;
-      }
-
-      .inputCity{
-        flex: 1;
-      }
-      
-      .inputComplement {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        position: relative;
-
-        input {
-          width: 100%;
-        }
-
-        input + label {
-          position: absolute;
-          right: .75rem;
-          font-style: italic;
-          font-size: .75rem;
-          color: ${props => props.theme["base-label"]};
-          transition: all .2s ease-in-out;
-        }
-
-        input:focus + label {
-          color: transparent;
-        }
-      }
+    .form-title {
+      color: ${props => props.theme["base-subtitle"]};
+      font-family: 'Baloo 2', cursive;
+      font-weight: bold;
+      font-size: 1.125rem;
     }
 
-    .payment-methods {
-      margin-top: 2rem;
-      display: flex;
-      align-items: center;
-      gap: .75rem;
+    .container {
+      margin-top: 1rem;
+      background-color: ${props => props.theme["base-card"]};
+      padding: 2.5rem;
+      border-radius: 6px;
 
-      button {
-        width: 100%;
-        padding: 1rem;
-        background-color: ${props => props.theme["base-button"]};
-        border-radius: 6px;
-        border: none;
+      .form-header {
         display: flex;
-        align-items: center;
-        gap: .75rem;
+        gap: .5rem;
 
-        svg {
+        .map-icon {
+          color: ${props => props.theme["yellow-dark"]};
+        }
+
+        .currency-icon {
           color: ${props => props.theme.purple};
         }
 
+        h3 {
+          color: ${props => props.theme["base-subtitle"]};
+          font-weight: 400;
+          font-size: 1rem;
+        }
+
         span {
-          font-size: .75rem;
-          text-transform: uppercase;
+          font-size: .875rem;
           color: ${props => props.theme["base-text"]};
+        }
+      }
+
+      .form-inputs {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        input {
+          height: 42px;
+          padding: .75rem;
+          background-color: ${props => props.theme["base-input"]};
+          border: 1px solid ${props => props.theme["base-button"]};
+          border-radius: 4px;
+          color: ${props => props.theme["base-label"]};
+        
+          ::placeholder {
+            color: ${props => props.theme["base-label"]};
+            font-size: .875rem;
+          }
+        }
+
+        .inputWidth{
+          width: 200px;
+        }
+
+        div {
+          display: flex;
+          gap: .75rem;
+        }
+
+        .inputUF {
+          width: 60px;
+        }
+
+        .inputCity{
+          flex: 1;
+        }
+
+        .inputComplement {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          position: relative;
+
+          input {
+            width: 100%;
+          }
+
+          input + label {
+            position: absolute;
+            right: .75rem;
+            font-style: italic;
+            font-size: .75rem;
+            color: ${props => props.theme["base-label"]};
+            transition: all .2s ease-in-out;
+          }
+
+          input:focus + label {
+            color: transparent;
+          }
+        }
+      }
+
+      .payment-methods {
+        margin-top: 2rem;
+        display: flex;
+        align-items: center;
+        gap: .75rem;
+
+        button {
+          width: 100%;
+          padding: 1rem;
+          background-color: ${props => props.theme["base-button"]};
+          border-radius: 6px;
+          border: none;
+          display: flex;
+          align-items: center;
+          gap: .75rem;
+
+          svg {
+            color: ${props => props.theme.purple};
+          }
+
+          span {
+            font-size: .75rem;
+            text-transform: uppercase;
+            color: ${props => props.theme["base-text"]};
+          }
         }
       }
     }

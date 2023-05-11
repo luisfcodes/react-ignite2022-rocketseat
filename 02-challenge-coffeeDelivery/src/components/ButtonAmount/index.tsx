@@ -23,11 +23,11 @@ export function ButtonAmount({ height, amount, coffeeTitle }: ButtonAmountProps)
 
   return (
     <ButtonContainer height={height}>
-      <button>
+      <button type="button">
         <Minus size={14} weight="bold" onClick={() => handleUpdateAmountCoffee("subtraction", amount)} />
       </button>
       <span> { amount } </span>
-      <button>
+      <button type="button">
         <Plus size={14} weight="bold" onClick={() => handleUpdateAmountCoffee("addition", amount)}/>
       </button>
     </ButtonContainer>
