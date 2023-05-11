@@ -8,13 +8,14 @@ export interface CoffeeList {
   tags: string[]
   title: string
   subtitle: string
-  price: string
+  price: number
   image: string
   amount: number
 }
 
 interface CoffeeContextType {
   coffeeList: CoffeeList[]
+  coffeeCartList: CoffeeList[]
   updateCoffeeAmount: (coffeeTitle: string, newAmount: number) => void
 }
 
@@ -22,8 +23,10 @@ export const CoffeeContext = createContext({} as CoffeeContextType)
 
 export function CoffeeContextProvider({ children }: CoffeeContextProviderProps) {
   const [coffeeList, setCoffeeList] = useState<CoffeeList[]>([])
+  const [coffeeCartList, setCoffeeCartList] = useState<CoffeeList[]>([])
 
   useEffect(() => {
+    console.log('teste')
     fetch('http://localhost:3030/coffeeList')
       .then(data => data.json())
       .then(result => setCoffeeList(result))
@@ -41,11 +44,15 @@ export function CoffeeContextProvider({ children }: CoffeeContextProviderProps) 
         return item
       }
     })
+
+    const newCoffeeCartList = newCoffeeList.filter((item) => item.amount > 0)
+
+    setCoffeeCartList(newCoffeeCartList)
     setCoffeeList(newCoffeeList)
   }
 
   return (
-    <CoffeeContext.Provider value={{ coffeeList, updateCoffeeAmount }}>
+    <CoffeeContext.Provider value={{ coffeeList, updateCoffeeAmount, coffeeCartList }}>
       {children}
     </CoffeeContext.Provider>
   )

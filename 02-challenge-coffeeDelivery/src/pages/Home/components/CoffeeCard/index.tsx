@@ -4,6 +4,7 @@ import { ShoppingCartSimple } from "@phosphor-icons/react";
 
 import { ButtonAmount } from "../../../../components/ButtonAmount";
 import { CoffeeList } from "../../../../contexts/CoffeeContext";
+import { NavLink } from "react-router-dom";
 
 export function CoffeeCard({ title, subtitle, price, image, tags, amount } : CoffeeList) {
   return (
@@ -20,13 +21,13 @@ export function CoffeeCard({ title, subtitle, price, image, tags, amount } : Cof
       <span className="subtitle">{ subtitle }</span>
 
       <div className="actions">
-        <span className="currency">R$</span><span className="price">{ price }</span>
+        <span className="currency">R$</span><span className="price">{ price.toFixed(2).replace(".", ",") }</span>
 
         <div className="actions-buttons">
           <ButtonAmount height={38} amount={amount} coffeeTitle={ title }/>
-          <button className="buy-button" >
+          <NavLink className="buy-button" to="/checkout">
             <ShoppingCartSimple size={22} weight="fill"/>
-          </button>
+          </NavLink>
         </div>
       </div>
     </CardContainer>

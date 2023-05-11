@@ -1,8 +1,26 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "@phosphor-icons/react";
 import { CheckoutContainer, Divider } from "./styles";
 import { ButtonAmount } from "../../components/ButtonAmount";
+import { useContext } from "react";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 
 export function Checkout() {
+  const { coffeeCartList, updateCoffeeAmount } = useContext(CoffeeContext)
+
+  const totalPrice = coffeeCartList.reduce((acc, current) => {
+    return acc + (current.amount * current.price)
+  }, 0)
+
+  const deliveryCost = totalPrice === 0 ? 0 : totalPrice < 50 ? 5 : 2.5 
+
+  function formatNumberForCurrency(number: number){
+    return number.toFixed(2).replace(".", ",")
+  }
+
+  function handleRemoveCoffee(coffeeTitle: string){
+    updateCoffeeAmount(coffeeTitle, 0)
+  }
+
   return (
     <CheckoutContainer>
       <section className="order-form">
@@ -24,14 +42,14 @@ export function Checkout() {
             <div>
               <input type="number" placeholder="Número" className="inputWidth" />
               <div className="inputComplement">
-                <input type="text" placeholder="Complemento"/>
+                <input type="text" placeholder="Complemento" />
                 <label>Opcional</label>
               </div>
             </div>
 
             <div>
               <input type="text" placeholder="Bairro" className="inputWidth" />
-              <input type="text" placeholder="Cidade" className="inputCity"/>
+              <input type="text" placeholder="Cidade" className="inputCity" />
               <input type="text" placeholder="UF" className="inputUF" />
             </div>
           </form>
@@ -48,17 +66,17 @@ export function Checkout() {
 
           <div className="payment-methods">
             <button>
-              <CreditCard size={16}/>
+              <CreditCard size={16} />
               <span>Cartão de Crédito</span>
             </button>
 
             <button>
-              <Bank size={16}/>
+              <Bank size={16} />
               <span>Cartão de Débito</span>
             </button>
 
             <button>
-              <Money size={16}/>
+              <Money size={16} />
               <span>Dinheiro</span>
             </button>
           </div>
@@ -69,48 +87,40 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <div className="container coffee-selected-container">
-          <div className="coffee-selected">
-            <img src="src/assets/Express.png" alt="" />
-            <div className="actions">
-              <span className="title">Expresso Tradicional</span>
-              <div className="actions-buttons">
-                <ButtonAmount height={32} />
-                <button className="remove-button">
-                  <Trash size={16} />
-                  <span>Remover</span>
-                </button>
+
+          {coffeeCartList.map(coffee => (
+            <div key={coffee.title}>
+              <div className="coffee-selected">
+                <img src={`src/assets/${coffee.image}`} alt="" />
+                <div className="actions">
+                  <span className="title">{ coffee.title }</span>
+                  <div className="actions-buttons">
+                    <ButtonAmount height={32} amount={coffee.amount} coffeeTitle={coffee.title} />
+                    <button className="remove-button" onClick={() => handleRemoveCoffee(coffee.title)}>
+                      <Trash size={16} />
+                      <span>Remover</span>
+                    </button>
+                  </div>
+                </div>
+                <span className="price">R$ { formatNumberForCurrency(coffee.price * coffee.amount) }</span>
               </div>
+              <Divider />
             </div>
-            <span className="price">R$ 9,90</span>
-          </div>
-          <Divider />
-          <div className="coffee-selected">
-            <img src="src/assets/Express.png" alt="" />
-            <div className="actions">
-              <span className="title">Expresso Tradicional</span>
-              <div className="actions-buttons">
-                <ButtonAmount height={32} />
-                <button className="remove-button">
-                  <Trash size={16} />
-                  <span>Remover</span>
-                </button>
-              </div>
-            </div>
-            <span className="price">R$ 9,90</span>
-          </div>
-          <Divider />
+          ))}
+
+
           <div className="final-price">
             <div>
               <span className="title">Total de itens</span>
-              <span className="price">R$ 29,70</span>
+              <span className="price">R$ { formatNumberForCurrency(totalPrice) }</span>
             </div>
             <div>
               <span className="title">Entrega</span>
-              <span className="price">R$ 3,70</span>
+              <span className="price">R$ { formatNumberForCurrency(deliveryCost) }</span>
             </div>
             <div className="total">
               <span>Total</span>
-              <span>R$ 38,70</span>
+              <span>R$ { formatNumberForCurrency(totalPrice + deliveryCost) }</span>
             </div>
           </div>
           <button className="button-confirm">Confirmar Pedido</button>

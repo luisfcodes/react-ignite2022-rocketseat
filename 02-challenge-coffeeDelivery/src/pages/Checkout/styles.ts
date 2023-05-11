@@ -193,7 +193,8 @@ export const CheckoutContainer = styled.main`
       }
 
       .price {
-        margin-left: 3.125rem;
+        flex: 1;
+        text-align: end;
         font-weight: bold;
         color: ${props => props.theme["base-text"]};
       }

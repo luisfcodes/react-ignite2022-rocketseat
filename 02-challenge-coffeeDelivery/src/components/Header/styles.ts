@@ -39,5 +39,25 @@ export const HeaderContainer = styled.header`
         color: ${props => props.theme["yellow-dark"]};
       }
     }
+
+    .counter {
+      position: relative;
+
+      span{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: ${props => props.theme["yellow-dark"]};
+        right: -.5rem;
+        top: -.5rem;
+        width: 20px;
+        height: 20px;
+        border-radius: 1000px;
+        font-weight: bold;
+        font-size: .75rem;
+        color: ${props => props.theme.white};
+      }
+    }
   }
 `
