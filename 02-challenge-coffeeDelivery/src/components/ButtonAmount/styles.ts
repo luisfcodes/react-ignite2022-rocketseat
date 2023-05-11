@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ButtonAmountProps } from ".";
 
-export const ButtonContainer = styled.div<ButtonAmountProps>`
+export const ButtonContainer = styled.div<Pick<ButtonAmountProps, 'height'>>`
   width: 72px;
   height: ${props => props.height}px;
   display: flex;

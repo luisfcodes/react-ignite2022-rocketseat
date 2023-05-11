@@ -4,24 +4,11 @@ import { HomeContainer } from "./styles";
 import Banner from '../../assets/Banner.png';
 import { Item } from "./components/Item";
 import { CoffeeCard } from "./components/CoffeeCard";
-import { useEffect, useState } from "react";
-
-export interface CoffeeList {
-  tags: string[]
-  title: string
-  subtitle: string
-  price: string
-  image: string
-}
+import { useContext} from "react";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 
 export function Home() {
-  const [coffeeList, setCoffeeList] = useState<CoffeeList[]>([])
-
-  useEffect(() => {
-    fetch('http://localhost:3030/coffeeList')
-      .then(data => data.json())
-      .then(result => setCoffeeList(result))
-  }, [])
+  const { coffeeList } = useContext(CoffeeContext)
 
   return (
     <HomeContainer>
@@ -70,6 +57,7 @@ export function Home() {
               tags={coffee.tags}
               price={coffee.price}
               image={coffee.image}
+              amount={coffee.amount}
             />
           ))}
         </ul>
