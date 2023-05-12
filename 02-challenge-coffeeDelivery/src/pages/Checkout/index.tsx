@@ -6,6 +6,7 @@ import { CoffeeContext } from "../../contexts/CoffeeContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as zod from 'zod';
+import { CheckoutContext } from "../../contexts/CheckoutContext";
 
 const checkoutFormValidationSchema = zod.object({
   cep: zod.string().length(9, 'CEP inválido'),
@@ -21,8 +22,9 @@ type checkoutFormData = zod.infer<typeof checkoutFormValidationSchema>
 
 export function Checkout() {
   const { coffeeCartList, updateCoffeeAmount } = useContext(CoffeeContext)
-  const [ paymentMethods, setPaymentMethods ] = useState<"credit" | "debit" | "money">("credit")
-  const { register, handleSubmit, reset } = useForm<checkoutFormData>({
+  const { updateOrder } = useContext(CheckoutContext)
+  const [paymentMethods, setPaymentMethods] = useState<"credit" | "debit" | "money">("credit")
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<checkoutFormData>({
     resolver: zodResolver(checkoutFormValidationSchema),
     defaultValues: {
       cep: '',
@@ -49,13 +51,18 @@ export function Checkout() {
     updateCoffeeAmount(coffeeTitle, 0)
   }
 
-  function handleUpdatePaymentMethod(method: "credit" | "debit" | "money"){
+  function handleUpdatePaymentMethod(method: "credit" | "debit" | "money") {
     setPaymentMethods(method)
   }
 
-  function handleSubmitForm(data: checkoutFormData){
-    console.log(data)
-    reset()
+  function handleSubmitForm(data: checkoutFormData) {
+    if (coffeeCartList.length > 0) {
+      updateOrder({
+        formData: data,
+        paymentMethod: paymentMethods
+      })
+      reset()
+    }
   }
 
   return (
@@ -74,25 +81,36 @@ export function Checkout() {
             </div>
 
             <div className="form-inputs">
-              <input 
-                placeholder="CEP" 
-                className="inputWidth" 
-                {...register('cep')} 
-              />
-              <input 
-                placeholder="Rua" 
-                {...register('street')}  
-              />
-
-              <div>
-                <input 
-                  type="number" 
-                  placeholder="Número" 
+              <div className="form-group-error-message">
+                <input
+                  placeholder="CEP"
                   className="inputWidth"
-                  {...register('number')}
+                  {...register('cep')}
                 />
+                {errors.cep && <p>{errors.cep.message}</p>}
+              </div>
+
+              <div className="form-group-error-message">
+                <input
+                  placeholder="Rua"
+                  {...register('street')}
+                />
+                {errors.street && <p>{errors.street.message}</p>}
+              </div>
+
+              <div className="form-group">
+                <div className="form-group-error-message">
+                  <input
+                    type="number"
+                    placeholder="Número"
+                    className="inputWidth"
+                    {...register('number')}
+                  />
+                  {errors.number && <p>{errors.number.message}</p>}
+                </div>
+
                 <div className="inputComplement">
-                  <input 
+                  <input
                     placeholder="Complemento"
                     {...register('complement')}
                   />
@@ -100,22 +118,32 @@ export function Checkout() {
                 </div>
               </div>
 
-              <div>
-                <input
-                  placeholder="Bairro"
-                  className="inputWidth"
-                  {...register('district')}
-                />
-                <input
-                  placeholder="Cidade"
-                  className="inputCity"
-                  {...register('city')}
-                />
-                <input
-                  placeholder="UF"
-                  className="inputUF"
-                  {...register('uf')}
-                />
+              <div className="form-group">
+                <div className="form-group-error-message">
+                  <input
+                    placeholder="Bairro"
+                    className="inputWidth"
+                    {...register('district')}
+                  />
+                  {errors.district && <p>{errors.district.message}</p>}
+                </div>
+
+                <div className="form-group-error-message inputCity">
+                  <input
+                    placeholder="Cidade"
+                    {...register('city')}
+                  />
+                  {errors.city && <p>{errors.city.message}</p>}
+                </div>
+
+                <div className="form-group-error-message">
+                  <input
+                    placeholder="UF"
+                    className="inputUF"
+                    {...register('uf')}
+                  />
+                  {errors.uf && <p>{errors.uf.message}</p>}
+                </div>
               </div>
             </div>
           </div>
@@ -130,8 +158,8 @@ export function Checkout() {
             </div>
 
             <div className="payment-methods">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => handleUpdatePaymentMethod("credit")}
                 className={paymentMethods === 'credit' ? 'method-active' : ''}
               >
@@ -139,8 +167,8 @@ export function Checkout() {
                 <span>Cartão de Crédito</span>
               </button>
 
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => handleUpdatePaymentMethod("debit")}
                 className={paymentMethods === 'debit' ? 'method-active' : ''}
               >
@@ -148,8 +176,8 @@ export function Checkout() {
                 <span>Cartão de Débito</span>
               </button>
 
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => handleUpdatePaymentMethod("money")}
                 className={paymentMethods === 'money' ? 'method-active' : ''}
               >

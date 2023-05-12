@@ -77,7 +77,7 @@ export const CheckoutContainer = styled.main`
           width: 200px;
         }
 
-        div {
+        .form-group {
           display: flex;
           gap: .75rem;
         }
@@ -88,6 +88,10 @@ export const CheckoutContainer = styled.main`
 
         .inputCity{
           flex: 1;
+
+          input {
+            width: 100%;
+          }
         }
 
         .inputComplement {
@@ -111,6 +115,14 @@ export const CheckoutContainer = styled.main`
 
           input:focus + label {
             color: transparent;
+          }
+        }
+
+        .form-group-error-message{
+          p {
+            margin-top: .25rem;
+            font-size: .75rem;
+            color: ${props => props.theme.warn};
           }
         }
       }

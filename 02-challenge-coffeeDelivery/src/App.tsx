@@ -4,13 +4,16 @@ import { GlobalStyle } from "./styles/global";
 import { BrowserRouter } from "react-router-dom";
 import { Router } from "./Router";
 import { CoffeeContextProvider } from "./contexts/CoffeeContext";
+import { CheckoutContextProvider } from "./contexts/CheckoutContext";
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
       <BrowserRouter>
         <CoffeeContextProvider>
-          <Router />
+          <CheckoutContextProvider>
+            <Router />
+          </CheckoutContextProvider>
         </CoffeeContextProvider>
       </BrowserRouter>
       <GlobalStyle />
