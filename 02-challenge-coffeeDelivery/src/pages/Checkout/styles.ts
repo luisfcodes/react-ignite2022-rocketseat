@@ -65,7 +65,7 @@ export const CheckoutContainer = styled.main`
           background-color: ${props => props.theme["base-input"]};
           border: 1px solid ${props => props.theme["base-button"]};
           border-radius: 4px;
-          color: ${props => props.theme["base-label"]};
+          color: ${props => props.theme["base-text"]};
         
           ::placeholder {
             color: ${props => props.theme["base-label"]};
@@ -126,10 +126,15 @@ export const CheckoutContainer = styled.main`
           padding: 1rem;
           background-color: ${props => props.theme["base-button"]};
           border-radius: 6px;
-          border: none;
+          border: 1px solid transparent;
           display: flex;
           align-items: center;
           gap: .75rem;
+
+          &.method-active {
+            background-color: ${props => props.theme["purple-light"]};
+            border: 1px solid ${props => props.theme.purple};
+          }
 
           svg {
             color: ${props => props.theme.purple};

@@ -26,7 +26,6 @@ export function CoffeeContextProvider({ children }: CoffeeContextProviderProps) 
   const [coffeeCartList, setCoffeeCartList] = useState<CoffeeList[]>([])
 
   useEffect(() => {
-    console.log('teste')
     fetch('http://localhost:3030/coffeeList')
       .then(data => data.json())
       .then(result => setCoffeeList(result))

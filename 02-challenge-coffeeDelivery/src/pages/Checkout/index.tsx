@@ -1,11 +1,39 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, Trash } from "@phosphor-icons/react";
 import { CheckoutContainer, Divider } from "./styles";
 import { ButtonAmount } from "../../components/ButtonAmount";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CoffeeContext } from "../../contexts/CoffeeContext";
+import { useForm } from "react-hook-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as zod from 'zod';
+
+const checkoutFormValidationSchema = zod.object({
+  cep: zod.string().length(9, 'CEP inválido'),
+  street: zod.string().min(3, 'Informe um endereço válido'),
+  number: zod.string().min(1, 'Informe o número'),
+  complement: zod.string(),
+  district: zod.string().min(1, 'Informe o bairro'),
+  city: zod.string().min(1, 'Informe a cidade'),
+  uf: zod.string().length(2, 'UF inválida')
+})
+
+type checkoutFormData = zod.infer<typeof checkoutFormValidationSchema>
 
 export function Checkout() {
   const { coffeeCartList, updateCoffeeAmount } = useContext(CoffeeContext)
+  const [ paymentMethods, setPaymentMethods ] = useState<"credit" | "debit" | "money">("credit")
+  const { register, handleSubmit, reset } = useForm<checkoutFormData>({
+    resolver: zodResolver(checkoutFormValidationSchema),
+    defaultValues: {
+      cep: '',
+      street: '',
+      number: '',
+      complement: '',
+      district: '',
+      city: '',
+      uf: ''
+    }
+  })
 
   const totalPrice = coffeeCartList.reduce((acc, current) => {
     return acc + (current.amount * current.price)
@@ -21,9 +49,18 @@ export function Checkout() {
     updateCoffeeAmount(coffeeTitle, 0)
   }
 
+  function handleUpdatePaymentMethod(method: "credit" | "debit" | "money"){
+    setPaymentMethods(method)
+  }
+
+  function handleSubmitForm(data: checkoutFormData){
+    console.log(data)
+    reset()
+  }
+
   return (
     <CheckoutContainer>
-      <form>
+      <form onSubmit={handleSubmit(handleSubmitForm)}>
         <section>
           <h2 className="form-title">Complete seu pedido</h2>
 
@@ -37,21 +74,48 @@ export function Checkout() {
             </div>
 
             <div className="form-inputs">
-              <input type="text" placeholder="CEP" className="inputWidth" />
-              <input type="text" placeholder="Rua" />
+              <input 
+                placeholder="CEP" 
+                className="inputWidth" 
+                {...register('cep')} 
+              />
+              <input 
+                placeholder="Rua" 
+                {...register('street')}  
+              />
 
               <div>
-                <input type="number" placeholder="Número" className="inputWidth" />
+                <input 
+                  type="number" 
+                  placeholder="Número" 
+                  className="inputWidth"
+                  {...register('number')}
+                />
                 <div className="inputComplement">
-                  <input type="text" placeholder="Complemento" />
+                  <input 
+                    placeholder="Complemento"
+                    {...register('complement')}
+                  />
                   <label>Opcional</label>
                 </div>
               </div>
 
               <div>
-                <input type="text" placeholder="Bairro" className="inputWidth" />
-                <input type="text" placeholder="Cidade" className="inputCity" />
-                <input type="text" placeholder="UF" className="inputUF" />
+                <input
+                  placeholder="Bairro"
+                  className="inputWidth"
+                  {...register('district')}
+                />
+                <input
+                  placeholder="Cidade"
+                  className="inputCity"
+                  {...register('city')}
+                />
+                <input
+                  placeholder="UF"
+                  className="inputUF"
+                  {...register('uf')}
+                />
               </div>
             </div>
           </div>
@@ -66,17 +130,29 @@ export function Checkout() {
             </div>
 
             <div className="payment-methods">
-              <button type="button">
+              <button 
+                type="button" 
+                onClick={() => handleUpdatePaymentMethod("credit")}
+                className={paymentMethods === 'credit' ? 'method-active' : ''}
+              >
                 <CreditCard size={16} />
                 <span>Cartão de Crédito</span>
               </button>
 
-              <button type="button">
+              <button 
+                type="button" 
+                onClick={() => handleUpdatePaymentMethod("debit")}
+                className={paymentMethods === 'debit' ? 'method-active' : ''}
+              >
                 <Bank size={16} />
                 <span>Cartão de Débito</span>
               </button>
 
-              <button type="button">
+              <button 
+                type="button" 
+                onClick={() => handleUpdatePaymentMethod("money")}
+                className={paymentMethods === 'money' ? 'method-active' : ''}
+              >
                 <Money size={16} />
                 <span>Dinheiro</span>
               </button>
