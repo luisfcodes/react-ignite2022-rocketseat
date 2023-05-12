@@ -17,6 +17,7 @@ interface CoffeeContextType {
   coffeeList: CoffeeList[]
   coffeeCartList: CoffeeList[]
   updateCoffeeAmount: (coffeeTitle: string, newAmount: number) => void
+  resetCoffeeCart: () => void
 }
 
 export const CoffeeContext = createContext({} as CoffeeContextType)
@@ -50,8 +51,24 @@ export function CoffeeContextProvider({ children }: CoffeeContextProviderProps) 
     setCoffeeList(newCoffeeList)
   }
 
+  function resetCoffeeCart() {
+    setCoffeeCartList([])
+    resetAmountCoffeList()
+  }
+
+  function resetAmountCoffeList() {
+    const newCoffeeList = coffeeList.map(item => {
+      return {
+        ...item,
+        amount: 0
+      }
+    })
+
+    setCoffeeList(newCoffeeList)
+  }
+
   return (
-    <CoffeeContext.Provider value={{ coffeeList, updateCoffeeAmount, coffeeCartList }}>
+    <CoffeeContext.Provider value={{ coffeeList, updateCoffeeAmount, coffeeCartList, resetCoffeeCart }}>
       {children}
     </CoffeeContext.Provider>
   )

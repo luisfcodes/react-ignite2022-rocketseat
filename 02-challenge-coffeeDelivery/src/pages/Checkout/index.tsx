@@ -7,9 +7,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as zod from 'zod';
 import { CheckoutContext } from "../../contexts/CheckoutContext";
+import { useNavigate } from "react-router-dom";
 
 const checkoutFormValidationSchema = zod.object({
-  cep: zod.string().length(9, 'CEP inválido'),
+  cep: zod.string().length(9, 'CEP inválido, modelo: XXXXX-XXX'),
   street: zod.string().min(3, 'Informe um endereço válido'),
   number: zod.string().min(1, 'Informe o número'),
   complement: zod.string(),
@@ -21,10 +22,12 @@ const checkoutFormValidationSchema = zod.object({
 type checkoutFormData = zod.infer<typeof checkoutFormValidationSchema>
 
 export function Checkout() {
-  const { coffeeCartList, updateCoffeeAmount } = useContext(CoffeeContext)
+  const navigate = useNavigate()
+  const [coffeeCartListIsEmpty, setCoffeeCartListIsEmpty] = useState(false)
+  const { coffeeCartList, updateCoffeeAmount, resetCoffeeCart } = useContext(CoffeeContext)
   const { updateOrder } = useContext(CheckoutContext)
   const [paymentMethods, setPaymentMethods] = useState<"credit" | "debit" | "money">("credit")
-  const { register, handleSubmit, reset, formState: { errors } } = useForm<checkoutFormData>({
+  const { register, handleSubmit, reset, formState: { errors }, watch } = useForm<checkoutFormData>({
     resolver: zodResolver(checkoutFormValidationSchema),
     defaultValues: {
       cep: '',
@@ -42,6 +45,9 @@ export function Checkout() {
   }, 0)
 
   const deliveryCost = totalPrice === 0 ? 0 : totalPrice < 50 ? 5 : 2.5
+
+  const complementInput = watch('complement')
+  const complementIsEmpty = complementInput
 
   function formatNumberForCurrency(number: number) {
     return number.toFixed(2).replace(".", ",")
@@ -62,6 +68,13 @@ export function Checkout() {
         paymentMethod: paymentMethods
       })
       reset()
+      resetCoffeeCart()
+      navigate('/success')
+    } else {
+      setCoffeeCartListIsEmpty(true)
+      setTimeout(() => {
+        setCoffeeCartListIsEmpty(false)
+      }, 500)
     }
   }
 
@@ -90,7 +103,7 @@ export function Checkout() {
                 {errors.cep && <p>{errors.cep.message}</p>}
               </div>
 
-              <div className="form-group-error-message">
+              <div className="form-group-error-message inputStreet">
                 <input
                   placeholder="Rua"
                   {...register('street')}
@@ -114,7 +127,7 @@ export function Checkout() {
                     placeholder="Complemento"
                     {...register('complement')}
                   />
-                  <label>Opcional</label>
+                  <label className={complementIsEmpty ? 'hidden' : ''}>Opcional</label>
                 </div>
               </div>
 
@@ -192,26 +205,34 @@ export function Checkout() {
           <h2 className="form-title">Cafés selecionados</h2>
 
           <div className="container coffee-selected-container">
-
-            {coffeeCartList.map(coffee => (
-              <div key={coffee.title}>
-                <div className="coffee-selected">
-                  <img src={`src/assets/${coffee.image}`} alt="" />
-                  <div className="actions">
-                    <span className="title">{coffee.title}</span>
-                    <div className="actions-buttons">
-                      <ButtonAmount height={32} amount={coffee.amount} coffeeTitle={coffee.title} />
-                      <button type="button" className="remove-button" onClick={() => handleRemoveCoffee(coffee.title)}>
-                        <Trash size={16} />
-                        <span>Remover</span>
-                      </button>
+            {coffeeCartList.length > 0 ? (
+              coffeeCartList.map(coffee => (
+                <div key={coffee.title}>
+                  <div className="coffee-selected">
+                    <img src={`src/assets/${coffee.image}`} alt="" />
+                    <div className="actions">
+                      <span className="title">{coffee.title}</span>
+                      <div className="actions-buttons">
+                        <ButtonAmount height={32} amount={coffee.amount} coffeeTitle={coffee.title} />
+                        <button type="button" className="remove-button" onClick={() => handleRemoveCoffee(coffee.title)}>
+                          <Trash size={16} />
+                          <span>Remover</span>
+                        </button>
+                      </div>
                     </div>
+                    <span className="price">R$ {formatNumberForCurrency(coffee.price * coffee.amount)}</span>
                   </div>
-                  <span className="price">R$ {formatNumberForCurrency(coffee.price * coffee.amount)}</span>
+                  <Divider />
+                </div>
+              ))
+            ) : (
+              <>
+                <div className={`${coffeeCartListIsEmpty ? 'coffee-empty-warn' : ''} coffee-empty`}>
+                  <span>Selecione um café</span>
                 </div>
                 <Divider />
-              </div>
-            ))}
+              </>
+            )}
 
 
             <div className="final-price">

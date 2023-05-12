@@ -66,6 +66,10 @@ export const CheckoutContainer = styled.main`
           border: 1px solid ${props => props.theme["base-button"]};
           border-radius: 4px;
           color: ${props => props.theme["base-text"]};
+
+          :focus {
+            outline: 1px solid ${props => props.theme["yellow-dark"]};
+          }
         
           ::placeholder {
             color: ${props => props.theme["base-label"]};
@@ -86,7 +90,7 @@ export const CheckoutContainer = styled.main`
           width: 60px;
         }
 
-        .inputCity{
+        .inputCity, .inputStreet{
           flex: 1;
 
           input {
@@ -116,6 +120,10 @@ export const CheckoutContainer = styled.main`
           input:focus + label {
             color: transparent;
           }
+
+          .hidden {
+            display: none;
+          }
         }
 
         .form-group-error-message{
@@ -142,10 +150,15 @@ export const CheckoutContainer = styled.main`
           display: flex;
           align-items: center;
           gap: .75rem;
+          transition: all .2s;
 
           &.method-active {
             background-color: ${props => props.theme["purple-light"]};
             border: 1px solid ${props => props.theme.purple};
+          }
+
+          &:not(.method-active):hover {
+            background-color: ${props => props.theme["base-hover"]};
           }
 
           svg {
@@ -168,6 +181,21 @@ export const CheckoutContainer = styled.main`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    .coffee-empty {
+      border: 6px dashed ${props => props.theme["base-hover"]};
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 1.25rem;
+      padding: 1rem;
+      transition: all .2s;
+    }
+
+    .coffee-empty-warn {
+      border: 6px dashed ${props => props.theme.warn};
+      color: ${props => props.theme.warn};
+    }
 
     .coffee-selected {
       display: flex;
@@ -202,6 +230,11 @@ export const CheckoutContainer = styled.main`
             background-color: ${props => props.theme["base-button"]};
             border-radius: 6px;
             border: none;
+            transition: all .2s;
+
+            &:hover {
+              background-color: ${props => props.theme["base-hover"]};
+            }
 
             svg {
               color: ${props => props.theme.purple}
@@ -260,6 +293,11 @@ export const CheckoutContainer = styled.main`
       font-size: .875rem;
       text-transform: uppercase;
       color: ${props => props.theme.white};
+      transition: all .2s;
+
+      &:hover {
+        background-color: ${props => props.theme["yellow-dark"]};
+      }
     }
   }
 `

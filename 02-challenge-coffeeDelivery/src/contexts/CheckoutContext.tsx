@@ -1,5 +1,4 @@
 import { ReactNode, createContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface FormData {
   cep: string
@@ -29,11 +28,9 @@ export const CheckoutContext = createContext({} as CheckoutContextType)
 
 export function CheckoutContextProvider({ children }: CheckoutContextProviderProps) {
   const [order, setOrder] = useState<OrderType>({} as OrderType)
-  const navigate = useNavigate()
 
   function updateOrder(order: OrderType){
     setOrder(order)
-    navigate('/success')
   }
 
   return (
