@@ -21,7 +21,7 @@
 
 1. Download or clone the project
 2. Install all dependencies with `npm i` or `yarn` command
-3. Run the project with `npm run server`
+3. Run the project with `npm run dev`
 
 ## 🎨 Figma of the challenge
 
