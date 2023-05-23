@@ -18,10 +18,46 @@ export const ProfileContainer = styled.div`
       font-size: 1.5rem;
       line-height: 130%;
     }
+
+    a {
+      text-transform: uppercase;
+      text-decoration: none;
+      color: ${(props) => props.theme.blue};
+      font-weight: bold;
+      font-size: 0.75rem;
+      line-height: 160%;
+      border-bottom: 1px solid transparent;
+      transition: all 0.2s;
+      height: min-content;
+
+      svg {
+        margin-left: 0.5rem;
+        color: ${(props) => props.theme.blue};
+        width: 12px;
+        height: 12px;
+      }
+
+      &:hover {
+        border-bottom: 1px solid ${(props) => props.theme.blue};
+      }
+    }
   }
 
   .description {
     margin-top: 0.5rem;
     line-height: 160%;
+  }
+
+  .brands {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
   }
 `
