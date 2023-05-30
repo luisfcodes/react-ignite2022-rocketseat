@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom'
 import { PublicationCardContainer } from './styles'
 
 export function PublicationCard() {
   return (
     <PublicationCardContainer>
       <div>
-        <h2>JavaScript data types and data structures</h2>
+        <h2>
+          <Link to="/post">JavaScript data types and data structures</Link>
+        </h2>
         <span>Há 1 dia</span>
       </div>
 

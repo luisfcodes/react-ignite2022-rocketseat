@@ -9,6 +9,12 @@ export const ProfileContainer = styled.div`
   display: flex;
   gap: 2rem;
 
+  .avatar {
+    width: 148px;
+    height: 148px;
+    border-radius: 8px;
+  }
+
   .header {
     display: flex;
     justify-content: space-between;

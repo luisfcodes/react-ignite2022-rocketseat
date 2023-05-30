@@ -6,15 +6,16 @@ import {
   faComment,
   faArrowUpRightFromSquare,
 } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 export function PostInfo() {
   return (
     <PostInfoContainer>
       <div className="header">
-        <a href="#">
+        <Link to="/">
           <FontAwesomeIcon icon={faChevronLeft} />
           Voltar
-        </a>
+        </Link>
         <a href="#">
           Ver no GitHub
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
