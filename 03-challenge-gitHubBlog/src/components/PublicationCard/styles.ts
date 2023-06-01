@@ -5,6 +5,7 @@ export const PublicationCardContainer = styled.div`
   padding: 2rem;
   border-radius: 10px;
   line-height: 160%;
+  max-height: 270px;
 
   div {
     display: flex;
@@ -15,6 +16,11 @@ export const PublicationCardContainer = styled.div`
       color: ${(props) => props.theme['base-title']};
       flex: 1;
       line-height: 160%;
+      transition: color 0.2s ease-in-out;
+
+      &:hover {
+        color: ${(props) => props.theme.blue};
+      }
     }
 
     span {
@@ -23,7 +29,23 @@ export const PublicationCardContainer = styled.div`
     }
   }
 
-  p {
+  .summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     margin-top: 1.25rem;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      display: none;
+    }
+
+    p {
+      display: inline-block;
+    }
   }
 `

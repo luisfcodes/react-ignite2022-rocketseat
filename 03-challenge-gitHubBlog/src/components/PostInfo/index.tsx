@@ -8,7 +8,14 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
 
-export function PostInfo() {
+interface PostInfoProps {
+  title: string
+  user: string
+  comments: number
+  html_url: string
+}
+
+export function PostInfo({ title, user, comments, html_url }: PostInfoProps) {
   return (
     <PostInfoContainer>
       <div className="header">
@@ -16,18 +23,18 @@ export function PostInfo() {
           <FontAwesomeIcon icon={faChevronLeft} />
           Voltar
         </Link>
-        <a href="#">
+        <Link to={html_url} target="_blank">
           Ver no GitHub
           <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-        </a>
+        </Link>
       </div>
 
-      <h1>JavaScript data types and data structures</h1>
+      <h1>{title}</h1>
 
       <div className="brands">
         <div>
           <FontAwesomeIcon icon={faGithub} />
-          <span>cameronwll</span>
+          <span>{user}</span>
         </div>
 
         <div>
@@ -37,7 +44,7 @@ export function PostInfo() {
 
         <div>
           <FontAwesomeIcon icon={faComment} />
-          <span>5 comentários</span>
+          <span>{comments} comentários</span>
         </div>
       </div>
     </PostInfoContainer>

@@ -1,34 +1,54 @@
+import { useParams } from 'react-router-dom'
 import { PostInfo } from '../../components/PostInfo'
 import { PostContainer, PostContent } from './styles'
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/axios'
+import ReactMarkdown from 'react-markdown'
+import rehypeRaw from 'rehype-raw'
+
+interface PostType {
+  title: string
+  body: string
+  comments: number
+  html_url: string
+  user: {
+    login: string
+  }
+}
 
 export function Post() {
+  const { postId } = useParams()
+  const [post, setPost] = useState<PostType>()
+
+  useEffect(() => {
+    api
+      .get(
+        `https://api.github.com/repos/rocketseat-education/reactjs-github-blog-challenge/issues/${postId}`,
+      )
+      .then((response) => setPost(response.data))
+  }, [postId])
+
   return (
     <PostContainer>
-      <PostInfo />
-      <PostContent>
-        <p>
-          Programming languages all have built-in data structures, but these
-          often differ from one language to another. This article attempts to
-          list the built-in data structures available in JavaScript and what
-          properties they have. These can be used to build other data
-          structures. Wherever possible, comparisons with other languages are
-          drawn.
-        </p>
+      {post && (
+        <>
+          <PostInfo
+            title={post.title}
+            user={post.user.login}
+            comments={post.comments}
+            html_url={post.html_url}
+          />
 
-        <a href="#">Dynamic typing</a>
-        <p>
-          JavaScript is a loosely typed and dynamic language. Variables in
-          JavaScript are not directly associated with any particular value type,
-          and any variable can be assigned (and re-assigned) values of all
-          types:
-        </p>
-
-        <code>
-          let foo = 42 // foo is now a number <br />
-          foo = &apos;bar&apos; // foo is now a string <br />
-          foo = true // foo is now a boolean <br />
-        </code>
-      </PostContent>
+          <PostContent>
+            <ReactMarkdown
+              /* eslint-disable-next-line react/no-children-prop */
+              children={post.body}
+              rehypePlugins={[rehypeRaw]}
+              linkTarget={'_blank'}
+            />
+          </PostContent>
+        </>
+      )}
     </PostContainer>
   )
 }

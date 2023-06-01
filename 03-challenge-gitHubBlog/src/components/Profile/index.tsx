@@ -25,45 +25,45 @@ export function Profile() {
   const [user, setUser] = useState<User>()
 
   useEffect(() => {
-    api.get('luisfcodes').then((response) => setUser(response.data))
+    api.get('/users/luisfcodes').then((response) => setUser(response.data))
   }, [])
 
-  return (
-    user && (
-      <ProfileContainer>
-        <img src={user.avatar_url} alt="" className="avatar" />
+  return user ? (
+    <ProfileContainer>
+      <img src={user.avatar_url} alt="" className="avatar" />
 
-        <div>
-          <div className="header">
-            <h1>{user.name}</h1>
-            <Link to={user.html_url} target="_blank" rel="noreferrer">
-              GitHub
-              <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-            </Link>
+      <div>
+        <div className="header">
+          <h1>{user.name}</h1>
+          <Link to={user.html_url} target="_blank" rel="noreferrer">
+            GitHub
+            <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+          </Link>
+        </div>
+
+        <p className="description">{user.bio}</p>
+
+        <div className="brands">
+          <div>
+            <FontAwesomeIcon icon={faGithub} />
+            <span>{user.login}</span>
           </div>
 
-          <p className="description">{user.bio}</p>
-
-          <div className="brands">
+          {user.company && (
             <div>
-              <FontAwesomeIcon icon={faGithub} />
-              <span>{user.login}</span>
+              <FontAwesomeIcon icon={faBuilding} />
+              <span>{user.company}</span>
             </div>
+          )}
 
-            {user.company && (
-              <div>
-                <FontAwesomeIcon icon={faBuilding} />
-                <span>{user.company}</span>
-              </div>
-            )}
-
-            <div>
-              <FontAwesomeIcon icon={faUserGroup} />
-              <span>{user.followers} seguidores</span>
-            </div>
+          <div>
+            <FontAwesomeIcon icon={faUserGroup} />
+            <span>{user.followers} seguidores</span>
           </div>
         </div>
-      </ProfileContainer>
-    )
+      </div>
+    </ProfileContainer>
+  ) : (
+    <></>
   )
 }
