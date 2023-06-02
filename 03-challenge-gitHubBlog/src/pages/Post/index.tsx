@@ -11,6 +11,7 @@ interface PostType {
   body: string
   comments: number
   html_url: string
+  created_at: string
   user: {
     login: string
   }
@@ -37,6 +38,7 @@ export function Post() {
             user={post.user.login}
             comments={post.comments}
             html_url={post.html_url}
+            created_at={post.created_at}
           />
 
           <PostContent>
