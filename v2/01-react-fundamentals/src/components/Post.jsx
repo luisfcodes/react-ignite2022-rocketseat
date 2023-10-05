@@ -25,6 +25,21 @@ export function Post({ author, publishedAt, content }) {
     setNewCommentText('')
   }
 
+  function deleteComment(comment) {
+    setComments(comments.filter(item => item !== comment))
+  }
+
+  function handleNewCommentChange() {
+    event.target.setCustomValidity('')
+    setNewCommentText(event.target.value)
+  }
+
+  function handleNewCommentInvalid() {
+    event.target.setCustomValidity('O comentário não pode ser vazio')
+  }
+
+  const isNewCommentTextEmpty = newCommentText.trim() === ''
+
   return (
     <article className={styles.post}>
       <header>
@@ -44,9 +59,9 @@ export function Post({ author, publishedAt, content }) {
       <div className={styles.content}>
         {content.map(item => {
           if(item.type === 'paragraph') {
-            return <p>{item.content}</p>
+            return <p key={item.content}>{item.content}</p>
           } else if (item.type === 'link') {
-            return <p><a href="#">{item.content}</a></p>
+            return <p key={item.content}><a href="#">{item.content}</a></p>
           }
         })}
       </div>
@@ -57,18 +72,20 @@ export function Post({ author, publishedAt, content }) {
         <textarea 
           name='comment' 
           placeholder='Deixe um comentário' 
-          onChange={event => setNewCommentText(event.target.value)} 
-          value={newCommentText} 
+          onChange={handleNewCommentChange}
+          value={newCommentText}
+          onInvalid={handleNewCommentInvalid}
+          required
         />
 
         <footer>
-          <button type='submit'>Publicar</button>
+          <button type='submit' disabled={isNewCommentTextEmpty}>Publicar</button>
         </footer>
       </form>
 
       <div className={styles.commentList}>
-        {comments.map((comment, index) => {
-          return <Comment key={index} content={comment} />
+        {comments.map((comment) => {
+          return <Comment key={comment} content={comment} onDelete={deleteComment} />
         })}
       </div>
     </article>
