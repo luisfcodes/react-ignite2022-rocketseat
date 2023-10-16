@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useReducer, useState } from 'react'
 
 interface CreateCycleData {
   task: string
@@ -33,7 +33,10 @@ export const CyclesContext = createContext({} as CyclesContextType)
 export function CyclesContextProvider({
   children,
 }: CyclesContextProviderProps) {
-  const [cycles, setCycles] = useState<Cycle[]>([])
+  const [cycles, dispatch] = useReducer((state: Cycle[], action: any) => {
+    return state
+  }, [])
+
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
 
@@ -53,32 +56,46 @@ export function CyclesContextProvider({
       startDate: new Date(),
     }
 
-    setCycles((prevCycles) => [...prevCycles, newCycle])
+    dispatch({
+      type: 'ADD_NEW_CYCLE',
+      payload: {
+        newCycle,
+      },
+    })
+
+    // setCycles((prevCycles) => [...prevCycles, newCycle])
     setActiveCycleId(id)
     setAmountSecondsPassed(0)
   }
 
   function interruptCurrentCycle() {
-    setCycles((prevCycles) => {
-      const interruptedCycle = prevCycles.find(
-        (cycle) => cycle.id === activeCycleId,
-      )
-
-      if (!interruptedCycle) {
-        return prevCycles
-      }
-
-      return prevCycles.map((cycle) => {
-        if (cycle.id === activeCycleId) {
-          return {
-            ...cycle,
-            interruptedDate: new Date(),
-          }
-        }
-
-        return cycle
-      })
+    dispatch({
+      type: 'INTERRUPT_CURRENT_CYCLE',
+      payload: {
+        activeCycleId,
+      },
     })
+
+    // setCycles((prevCycles) => {
+    //   const interruptedCycle = prevCycles.find(
+    //     (cycle) => cycle.id === activeCycleId,
+    //   )
+
+    //   if (!interruptedCycle) {
+    //     return prevCycles
+    //   }
+
+    //   return prevCycles.map((cycle) => {
+    //     if (cycle.id === activeCycleId) {
+    //       return {
+    //         ...cycle,
+    //         interruptedDate: new Date(),
+    //       }
+    //     }
+
+    //     return cycle
+    //   })
+    // })
 
     setActiveCycleId(null)
   }
