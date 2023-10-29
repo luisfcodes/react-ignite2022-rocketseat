@@ -1,14 +1,14 @@
 import { ThemeProvider } from "styled-components"
-import { Container } from "./layout/Default"
+import { DefaultLayout } from "./layout/DefaultLayout"
 import { GlobalStyle } from "./styles/global"
 import defaultTheme from "./styles/themes/DefaultTheme"
 
 export function App() {
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container>
+      <DefaultLayout>
         <h1>Hello World</h1>
-      </Container>
+      </DefaultLayout>
       <GlobalStyle />
     </ThemeProvider>
   )
