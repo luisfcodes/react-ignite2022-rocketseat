@@ -11,15 +11,19 @@ export const HeaderContainer = styled.header`
     align-items: center;
     gap: 0.75rem;
 
-    .location {
+    .location, .cart {
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 0.5rem;
-      gap: 0.25rem;
       border-radius: 6px;
-      background-color: ${props => props.theme.colors["purple-light"]};
       border: none;
+      cursor: pointer;
+    }
+
+    .location {
+      gap: 0.25rem;
+      background-color: ${props => props.theme.colors["purple-light"]};
 
       svg {
         color: ${props => props.theme.colors.purple};
@@ -33,11 +37,6 @@ export const HeaderContainer = styled.header`
     }
 
     .cart {
-      display: flex;
-      align-items: center;
-      border: 0;
-      padding: 0.5rem;
-      border-radius: 6px;
       background-color: ${props => props.theme.colors["yellow-light"]};
 
       svg {
