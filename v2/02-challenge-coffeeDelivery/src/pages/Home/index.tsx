@@ -2,6 +2,7 @@ import { HomeContent, HomeHeader } from "../styles/Home/styles";
 
 import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 import bannerImg from '../../assets/banner.png';
+import { CoffeeCard } from "../../components/Coffee-card";
 
 export function Home(){
   return (
@@ -48,7 +49,18 @@ export function Home(){
       </HomeHeader>
 
       <HomeContent>
+        <h2>Nossos cafés</h2>
 
+        <ul>
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+          <CoffeeCard />
+        </ul>
       </HomeContent>
     </>
   )

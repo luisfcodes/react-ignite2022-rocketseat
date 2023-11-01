@@ -10,4 +10,12 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Roboto', sans-serif;
   }
+
+  a {
+    text-decoration: none;
+  }
+
+  li {
+    list-style: none;
+  }
 `

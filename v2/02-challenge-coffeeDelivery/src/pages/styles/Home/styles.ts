@@ -87,5 +87,21 @@ export const HomeHeader = styled.section`
   }
 `
 export const HomeContent = styled.section`
+  padding: 2rem 10rem;
 
+  h2 {
+    color: ${props => props.theme.colors["base-subtitle"]};
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 130%;
+  }
+
+  ul {
+    margin-top: 3.375rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    row-gap: 2.5rem;
+  }
 `
