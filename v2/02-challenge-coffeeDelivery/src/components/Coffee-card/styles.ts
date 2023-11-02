@@ -16,15 +16,21 @@ export const CardContainer = styled.li`
   }
 
   .type {
-    background-color: ${props => props.theme.colors["yellow-light"]};
-    padding: 0.25rem 0.5rem;
-    color: ${props => props.theme.colors["yellow-dark"]};
-    border-radius: 100px;
-    font-size: 0.625rem;
-    font-weight: bold;
-    line-height: 130%;
-    text-transform: uppercase;
     margin-top: calc(120px + 0.75rem - 2.5rem);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    span {
+      background-color: ${props => props.theme.colors["yellow-light"]};
+      padding: 0.25rem 0.5rem;
+      color: ${props => props.theme.colors["yellow-dark"]};
+      border-radius: 100px;
+      font-size: 0.625rem;
+      font-weight: bold;
+      line-height: 130%;
+      text-transform: uppercase;
+    }
   }
 
   .name {
@@ -81,16 +87,17 @@ export const CardContainer = styled.li`
         height: 38px;
         width: 72px;
 
+        span {
+          color: ${props => props.theme.colors["base-title"]};
+          padding: 0 .1rem;
+        }
+
         button {
           display: flex;
           align-items: center;
           background-color: transparent;
           border: none;
           cursor: pointer;
-
-          span {
-            color: ${props => props.theme.colors["base-title"]};
-          }
 
           svg {
             color: ${props => props.theme.colors.purple};

@@ -3,6 +3,7 @@ import { HomeContent, HomeHeader } from "../styles/Home/styles";
 import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 import bannerImg from '../../assets/banner.png';
 import { CoffeeCard } from "../../components/Coffee-card";
+import { coffeeList } from "../../mocks/coffeeList";
 
 export function Home(){
   return (
@@ -52,14 +53,15 @@ export function Home(){
         <h2>Nossos cafés</h2>
 
         <ul>
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
-          <CoffeeCard />
+          {coffeeList.map(coffee => (
+            <CoffeeCard
+              key={coffee.id}
+              name={coffee.name}
+              attributes={coffee.attributes}
+              description={coffee.description}
+              imgUrl={coffee.imgUrl}
+            />
+          ))}
         </ul>
       </HomeContent>
     </>

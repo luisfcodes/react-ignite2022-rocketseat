@@ -1,17 +1,27 @@
 import { Minus, Plus, ShoppingCart } from '@phosphor-icons/react'
-import coffeeImg from '../../assets/coffees/traditional_express.png'
 import { CardContainer } from './styles'
 
-export function CoffeeCard(){
+interface CoffeeCardProps {
+  imgUrl: string
+  name: string
+  attributes: string[]
+  description: string
+}
+
+export function CoffeeCard({ name, attributes, description, imgUrl }: CoffeeCardProps){
   return (
     <CardContainer>
-      <img src={coffeeImg} alt="" />
+      <img src={`src/assets/coffees/${imgUrl}`} alt="" />
 
-      <span className='type'>Tradicional</span>
+      <div className='type'>
+        {attributes.map(attribute => (
+          <span key={attribute}>{attribute}</span>
+        ))}
+      </div>
 
-      <span className='name'>Expresso Tradicional</span>
+      <span className='name'>{name}</span>
 
-      <span className='description'>O tradicional café feito com água quente e grãos moídos</span>
+      <span className='description'>{description}</span>
 
       <div className='footer'>
         <div>
