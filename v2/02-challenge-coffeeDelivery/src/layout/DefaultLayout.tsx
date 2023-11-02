@@ -1,16 +1,12 @@
-import { ReactNode } from "react"
+import { Outlet } from "react-router-dom"
 import { Header } from "../components/Header"
 import { Container } from "./styles"
 
-interface DefaultLayoutProps {
-  children: ReactNode
-}
-
-export const DefaultLayout = ({ children }: DefaultLayoutProps) => {
+export const DefaultLayout = () => {
   return (
     <Container>
       <Header />
-      {children}
+      <Outlet />
     </Container>
   )
 }
