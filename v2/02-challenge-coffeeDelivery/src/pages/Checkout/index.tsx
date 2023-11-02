@@ -93,11 +93,11 @@ export function Checkout() {
 
               <div className="buttons-container">
                 <div className="buttons-amount">
-                  <button>
+                  <button className="minus">
                     <Minus size={14} weight="bold" />
                   </button>
                   <span>1</span>
-                  <button>
+                  <button className="plus">
                     <Plus weight="bold" size={14} />
                   </button>
                 </div>
@@ -122,11 +122,11 @@ export function Checkout() {
 
               <div className="buttons-container">
                 <div className="buttons-amount">
-                  <button>
+                  <button className="minus">
                     <Minus size={14} weight="bold" />
                   </button>
                   <span>1</span>
-                  <button>
+                  <button className="plus">
                     <Plus weight="bold" size={14} />
                   </button>
                 </div>

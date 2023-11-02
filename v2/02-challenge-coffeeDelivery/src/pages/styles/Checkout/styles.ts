@@ -201,6 +201,16 @@ export const OrderSummary = styled.section`
               border: none;
               display: flex;
               align-items: center;
+              transition: all 0.2s;
+            }
+
+            .minus,
+            .plus {
+              svg {
+                &:hover {
+                  color: ${(props) => props.theme.colors["purple-dark"]};
+                }
+              }
             }
 
             svg {
@@ -222,6 +232,11 @@ export const OrderSummary = styled.section`
             padding: 0 0.5rem;
             border-radius: 6px;
             border: none;
+            transition: all 0.2s;
+
+            &:hover {
+              background-color: ${(props) => props.theme.colors["base-hover"]};
+            }
 
             svg {
               color: ${(props) => props.theme.colors.purple};
@@ -279,6 +294,11 @@ export const OrderSummary = styled.section`
       font-weight: 700;
       text-transform: uppercase;
       border: none;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: ${(props) => props.theme.colors["yellow-dark"]};
+      }
     }
   }
 `
