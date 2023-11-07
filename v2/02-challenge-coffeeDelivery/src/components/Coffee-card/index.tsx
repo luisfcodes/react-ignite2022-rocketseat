@@ -1,4 +1,6 @@
 import { Minus, Plus, ShoppingCart } from "@phosphor-icons/react"
+import { useContext, useState } from "react"
+import { CoffeesContext } from "../../contexts/CoffeesContext"
 import { CardContainer } from "./styles"
 
 interface CoffeeCardProps {
@@ -14,6 +16,52 @@ export function CoffeeCard({
   description,
   imgUrl,
 }: CoffeeCardProps) {
+  const { coffeeSelectedList, setCoffeeSelectedList } =
+    useContext(CoffeesContext)
+
+  const [amount, setAmount] = useState(1)
+
+  const handleMinusCoffee = () => {
+    if (amount > 1) {
+      setAmount((prevState) => prevState - 1)
+    }
+  }
+
+  const handlePlusCoffee = () => {
+    setAmount((prevState) => prevState + 1)
+  }
+
+  const handleAddCoffee = (name: string) => {
+    const coffee = coffeeSelectedList.find((coffee) => coffee.name === name)
+
+    if (coffee) {
+      const newCoffeeSelectedList = coffeeSelectedList.map((coffee) => {
+        if (coffee.name === name) {
+          return {
+            ...coffee,
+            amount: amount,
+          }
+        }
+
+        return coffee
+      })
+
+      setCoffeeSelectedList(newCoffeeSelectedList)
+    } else {
+      setCoffeeSelectedList([
+        ...coffeeSelectedList,
+        {
+          name,
+          imgUrl,
+          amount,
+          price: 9.9,
+        },
+      ])
+    }
+
+    setAmount(1)
+  }
+
   return (
     <CardContainer>
       <img src={`src/assets/coffees/${imgUrl}`} alt="" />
@@ -36,16 +84,16 @@ export function CoffeeCard({
 
         <div className="footer-buy">
           <div>
-            <button className="minus">
+            <button className="minus" onClick={handleMinusCoffee}>
               <Minus weight="bold" size={14} />
             </button>
-            <span>1</span>
-            <button className="plus">
+            <span>{amount}</span>
+            <button className="plus" onClick={handlePlusCoffee}>
               <Plus weight="bold" size={14} />
             </button>
           </div>
 
-          <button className="button-buy">
+          <button className="button-buy" onClick={() => handleAddCoffee(name)}>
             <ShoppingCart weight="fill" size={22} />
           </button>
         </div>

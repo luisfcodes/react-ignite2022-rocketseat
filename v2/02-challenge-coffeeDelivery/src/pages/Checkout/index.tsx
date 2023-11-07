@@ -3,14 +3,14 @@ import {
   CreditCard,
   CurrencyDollar,
   MapPin,
-  Minus,
   Money,
-  Plus,
-  Trash,
 } from "@phosphor-icons/react"
+import { useContext } from "react"
 import { Link } from "react-router-dom"
+import { CoffeeSelected } from "../../components/Coffee-Selected"
+import { CoffeesContext } from "../../contexts/CoffeesContext"
+import { formatCurrency } from "../../utils/formatCurrency"
 import {
-  Divider,
   Header,
   OrderSummary,
   PersonalData,
@@ -18,6 +18,20 @@ import {
 } from "../styles/Checkout/styles"
 
 export function Checkout() {
+  const { coffeeSelectedList } = useContext(CoffeesContext)
+
+  const totalPrice = coffeeSelectedList.reduce((acc, coffee) => {
+    return acc + coffee.amount * coffee.price
+  }, 0)
+
+  const totalPriceFormatted = formatCurrency(totalPrice)
+
+  const deliveryValue = coffeeSelectedList.length ? 3.5 : 0
+  const deliveryValueFormatted = formatCurrency(deliveryValue)
+
+  const totalOrder = totalPrice + deliveryValue
+  const totalOrderFormatted = formatCurrency(totalOrder)
+
   return (
     <Wrapper>
       <PersonalData>
@@ -85,78 +99,30 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <div className="summary">
-          <div className="product">
-            <img src="src/assets/coffees/latte.png" alt="" />
-
-            <div className="content">
-              <span className="name"> Expresso Tradicional</span>
-
-              <div className="buttons-container">
-                <div className="buttons-amount">
-                  <button className="minus">
-                    <Minus size={14} weight="bold" />
-                  </button>
-                  <span>1</span>
-                  <button className="plus">
-                    <Plus weight="bold" size={14} />
-                  </button>
-                </div>
-
-                <button className="delete-item">
-                  <Trash weight="regular" size={16} />
-                  <span>Remover</span>
-                </button>
-              </div>
-            </div>
-
-            <span className="price">R$ 9,90</span>
-          </div>
-
-          <Divider />
-
-          <div className="product">
-            <img src="src/assets/coffees/arabic.png" alt="" />
-
-            <div className="content">
-              <span className="name"> Expresso Tradicional</span>
-
-              <div className="buttons-container">
-                <div className="buttons-amount">
-                  <button className="minus">
-                    <Minus size={14} weight="bold" />
-                  </button>
-                  <span>1</span>
-                  <button className="plus">
-                    <Plus weight="bold" size={14} />
-                  </button>
-                </div>
-
-                <button className="delete-item">
-                  <Trash weight="regular" size={16} />
-                  <span>Remover</span>
-                </button>
-              </div>
-            </div>
-
-            <span className="price">R$ 9,90</span>
-          </div>
-
-          <Divider />
+          {coffeeSelectedList.map(({ amount, imgUrl, name, price }) => (
+            <CoffeeSelected
+              key={name}
+              amount={amount}
+              imgUrl={imgUrl}
+              name={name}
+              price={price}
+            />
+          ))}
 
           <div className="subtotal">
             <div>
               <span>Total de itens</span>
-              <span>R$ 29,70</span>
+              <span>{totalPriceFormatted}</span>
             </div>
 
             <div>
               <span>Entrega</span>
-              <span>R$ 3,50</span>
+              <span>{deliveryValueFormatted}</span>
             </div>
 
             <div>
               <span>Total</span>
-              <span>R$ 33,20</span>
+              <span>{totalOrderFormatted}</span>
             </div>
           </div>
 

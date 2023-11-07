@@ -1,18 +1,21 @@
-import { HomeContent, HomeHeader } from "../styles/Home/styles";
+import { HomeContent, HomeHeader } from "../styles/Home/styles"
 
-import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
-import bannerImg from '../../assets/banner.png';
-import { CoffeeCard } from "../../components/Coffee-card";
-import { coffeeList } from "../../mocks/coffeeList";
+import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react"
+import bannerImg from "../../assets/banner.png"
+import { CoffeeCard } from "../../components/Coffee-card"
+import { coffeeList } from "../../mocks/coffeeList"
 
-export function Home(){
+export function Home() {
   return (
     <>
       <HomeHeader>
         <div className="content">
           <div>
             <h1>Encontre o café perfeito para qualquer hora do dia</h1>
-            <p>Com o Coffee Delivery você recebe seu café onde estiver, a qualquer hora</p>
+            <p>
+              Com o Coffee Delivery você recebe seu café onde estiver, a
+              qualquer hora
+            </p>
           </div>
 
           <div className="benefits">
@@ -53,7 +56,7 @@ export function Home(){
         <h2>Nossos cafés</h2>
 
         <ul>
-          {coffeeList.map(coffee => (
+          {coffeeList.map((coffee) => (
             <CoffeeCard
               key={coffee.id}
               name={coffee.name}
