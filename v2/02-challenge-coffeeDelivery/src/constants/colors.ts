@@ -18,4 +18,6 @@ export const colors = {
   "purple-dark": "#4B2995",
   purple: "#8047F8",
   "purple-light": "#EBE5F9",
+
+  warn: "#ef4444",
 } as const

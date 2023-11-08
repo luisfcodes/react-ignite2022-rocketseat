@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const Wrapper = styled.div`
+export const FormWrapper = styled.form`
   padding: 2.5rem 10rem;
   display: flex;
   justify-content: space-between;
@@ -26,7 +26,7 @@ export const Header = styled.div`
   }
 `
 
-export const PersonalData = styled.section`
+export const PersonalData = styled.div`
   flex: 1;
 
   h3 {
@@ -57,6 +57,14 @@ export const PersonalData = styled.section`
       flex-direction: column;
       gap: 1rem;
 
+      .input-wrapper {
+        p {
+          margin-top: 0.5rem;
+          font-size: 0.75rem;
+          color: ${(props) => props.theme.colors.warn};
+        }
+      }
+
       input {
         padding: 0.75rem;
         border-radius: 4px;
@@ -72,15 +80,20 @@ export const PersonalData = styled.section`
         width: 200px;
       }
 
+      input[placeholder="Rua"] {
+        width: 100%;
+      }
+
       .number-complement {
         display: flex;
+        align-items: flex-start;
         gap: 1rem;
 
         input[type="number"] {
           width: 200px;
         }
 
-        div {
+        .complement {
           flex: 1;
           position: relative;
           display: flex;
@@ -103,14 +116,19 @@ export const PersonalData = styled.section`
 
       .neighborhood-city-uf {
         display: flex;
+        align-items: flex-start;
         gap: 1rem;
 
         input[placeholder="Bairro"] {
           width: 200px;
         }
 
-        input[placeholder="Cidade"] {
+        .city {
           flex: 1;
+
+          input {
+            width: 100%;
+          }
         }
 
         input[placeholder="UF"] {
@@ -126,11 +144,16 @@ export const PersonalData = styled.section`
     }
 
     .cards {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 0.75rem;
 
-      div {
+      input[type="radio"] {
+        display: none;
+      }
+
+      label {
         display: flex;
         padding: 1rem;
         align-items: center;
@@ -138,11 +161,24 @@ export const PersonalData = styled.section`
         flex: 1 0 0;
         border-radius: 6px;
         background-color: ${(props) => props.theme.colors["base-button"]};
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s;
+
+        &:hover {
+          background-color: ${(props) => props.theme.colors["base-hover"]};
+        }
 
         span {
           color: ${(props) => props.theme.colors["base-text"]};
           font-size: 0.75rem;
           text-transform: uppercase;
+        }
+
+        &.selected {
+          border-radius: 6px;
+          border: 1px solid ${(props) => props.theme.colors.purple};
+          background: ${(props) => props.theme.colors["purple-light"]};
         }
       }
     }
