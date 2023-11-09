@@ -1,8 +1,27 @@
 import { CurrencyDollar, MapPin, Timer } from "@phosphor-icons/react"
 import IllustrationImg from "../../assets/illustration.png"
+import { FormData } from "../Checkout"
 import { Wrapper } from "../styles/Success/styles"
 
 export function Success() {
+  const {
+    street,
+    number,
+    neighborhood,
+    city,
+    uf,
+    methodPayment,
+    complement,
+  }: FormData = JSON.parse(
+    localStorage.getItem("@coffee-delivery/order") || "null",
+  )
+
+  enum MethodPayment {
+    credit_card = "Cartão de Crédito",
+    debit_card = "Cartão de Débito",
+    money = "Dinheiro",
+  }
+
   return (
     <Wrapper>
       <h1>Uhu! Pedido confirmado</h1>
@@ -18,9 +37,14 @@ export function Success() {
               <div>
                 <p>
                   Entrega em{" "}
-                  <span className="bold">Rua João Daniel Martinelli, 102</span>
+                  <span className="bold">
+                    {street}, {number}
+                  </span>
                 </p>
-                <p>Farrapos - Porto Alegre, RS</p>
+                {complement && <p>{complement}</p>}
+                <p>
+                  {neighborhood} - {city}, {uf}
+                </p>
               </div>
             </div>
 
@@ -40,7 +64,7 @@ export function Success() {
               </div>
               <div>
                 <p>Pagamento na entrega</p>
-                <p className="bold">Cartão de Crédito</p>
+                <p className="bold">{MethodPayment[methodPayment]}</p>
               </div>
             </div>
           </div>

@@ -19,5 +19,7 @@ export const colors = {
   purple: "#8047F8",
   "purple-light": "#EBE5F9",
 
+  "red-light": "#FEE2E2",
+
   warn: "#ef4444",
 } as const

@@ -73,11 +73,15 @@ export function CoffeeSelected({
 
           <div className="buttons-container">
             <div className="buttons-amount">
-              <button className="minus" onClick={handleMinusCoffee}>
+              <button
+                type="button"
+                className="minus"
+                onClick={handleMinusCoffee}
+              >
                 <Minus size={14} weight="bold" />
               </button>
               <span>{amount}</span>
-              <button className="plus" onClick={handlePlusCoffee}>
+              <button type="button" className="plus" onClick={handlePlusCoffee}>
                 <Plus weight="bold" size={14} />
               </button>
             </div>

@@ -6,8 +6,9 @@ import {
   MapPin,
   Money,
 } from "@phosphor-icons/react"
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 import * as z from "zod"
 import { CoffeeSelected } from "../../components/Coffee-Selected"
 import { CoffeesContext } from "../../contexts/CoffeesContext"
@@ -34,10 +35,12 @@ const zodSchema = z.object({
     }),
 })
 
-type FormData = z.infer<typeof zodSchema>
+export type FormData = z.infer<typeof zodSchema>
 
 export function Checkout() {
   const { coffeeSelectedList } = useContext(CoffeesContext)
+  const [emptyCart, setEmptyCart] = useState(false)
+  const navigate = useNavigate()
 
   const {
     register,
@@ -64,8 +67,17 @@ export function Checkout() {
   const totalOrderFormatted = formatCurrency(totalOrder)
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data)
-    // <Link to="/success">Confirmar Pedido</Link>
+    if (coffeeSelectedList.length) {
+      localStorage.setItem("@coffee-delivery/order", JSON.stringify(data))
+
+      navigate("/success")
+    } else {
+      setEmptyCart(true)
+
+      setTimeout(() => {
+        setEmptyCart(false)
+      }, 2000)
+    }
   }
 
   const watchMethodPayment = watch("methodPayment")
@@ -204,6 +216,8 @@ export function Checkout() {
         <h2>Cafés selecionados</h2>
 
         <div className="summary">
+          {emptyCart && <p className="emptyCart">Seu carrinho está vazio</p>}
+
           {coffeeSelectedList.map(({ amount, imgUrl, name, price }) => (
             <CoffeeSelected
               key={name}

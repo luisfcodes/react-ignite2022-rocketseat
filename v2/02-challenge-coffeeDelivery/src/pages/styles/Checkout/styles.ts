@@ -70,6 +70,7 @@ export const PersonalData = styled.div`
         border-radius: 4px;
         border: 1px solid ${(props) => props.theme.colors["base-button"]};
         background: ${(props) => props.theme.colors["base-input"]};
+        outline-color: ${(props) => props.theme.colors["yellow-dark"]};
 
         &::placeholder {
           color: ${(props) => props.theme.colors["base-label"]};
@@ -195,6 +196,16 @@ export const OrderSummary = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    .emptyCart {
+      text-align: center;
+      color: ${(props) => props.theme.colors.warn};
+      background-color: ${(props) => props.theme.colors["red-light"]};
+      padding: 0.5rem 0;
+      border-radius: 6px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
     .subtotal {
       display: flex;
