@@ -64,7 +64,7 @@ export function CoffeeCard({
 
   return (
     <CardContainer>
-      <img src={`src/assets/coffees/${imgUrl}`} alt="" />
+      <img src={`img/coffees/${imgUrl}`} alt="" />
 
       <div className="type">
         {attributes.map((attribute) => (
